@@ -19,11 +19,11 @@ And then run following command to copy templates from the image to this director
 $ docker run --rm mfojtik/origin-templates | tar x
 ```
 
-To install the templates in OpenShift, you can run following command:
+To install the templates in OpenShift, you can run following commands:
 
 ```console
 $ cd templates
-for f in $(find -name '*.json'); do oc create -f $f -n openshift; done
+$ for f in $(find -name '*.json'); do oc create -f $f -n openshift; done
 ```
 
 ## Files included:
