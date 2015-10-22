@@ -7,7 +7,11 @@ repos="openshift/origin openshift/nodejs-ex openshift/django-ex openshift/rails-
 fetch_repo_master() {
   local org=$(echo -n "$1" | cut -d '/' -f 1)
   local repo=$(echo -n "$1" | cut -d '/' -f 2)
-  curl -4 -L https://github.com/${org}/${repo}/archive/master.zip -o ${repo}-master.zip
+  local tag=master
+  # jboss templates from master does not work without access to their private
+  # registry.
+  [[ "${org}" == "jboss-openshift" ]] && tag="ose-v1.0.2"
+  curl -4 -L https://github.com/${org}/${repo}/archive/${tag}.zip -o ${repo}-master.zip
 }
 
 tmp=$(mktemp -d)
@@ -36,8 +40,8 @@ cp ${tmp}/dancer-ex-master/openshift/templates/*  ./quickstart-templates/
 cp ${tmp}/cakephp-ex-master/openshift/templates/* ./quickstart-templates/
 
 cp ${tmp}/origin-master/examples/jenkins/jenkins-*template.json ./quickstart-templates/
-cp ${tmp}/application-templates-master/jboss-image-streams.json ./xpaas-streams/
+cp ${tmp}/application-templates-ose-v1.0.2/jboss-image-streams.json ./xpaas-streams/
 
-find ${tmp}/application-templates-master/ -name '*.json' ! -wholename '*secret*' \
+find ${tmp}/application-templates-ose-v1.0.2/ -name '*.json' ! -wholename '*secret*' \
   -exec cp {} ./xpaas-templates/ \;
 rm -rf ${tmp}
