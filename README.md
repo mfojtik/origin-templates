@@ -1,6 +1,6 @@
 #### origin-templates
 
-This repository contains sources for the `mfojtik/origin-templates` Docker image that you can pull from the DockerHub:
+This repository contains sources for the [`mfojtik/origin-templates`](https://hub.docker.com/r/mfojtik/origin-templates/) Docker image that you can pull from the DockerHub:
 
 ```console
 $ docker pull mfojtik/origin-templates
